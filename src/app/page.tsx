@@ -1,54 +1,66 @@
-import Link from "next/link";
-
-import { LatestPost } from "@/app/_components/post";
-import { api, HydrateClient } from "@/trpc/server";
-import styles from "./index.module.css";
+import { api } from "@/trpc/server";
+import Image from "next/image";
 
 export default async function Home() {
-  const hello = await api.post.hello({ text: "from tRPC" });
-
-  void api.post.getLatest.prefetch();
-
+  const { images } = await api.googlePhotos.getImages();
   return (
-    <HydrateClient>
-      <main className={styles.main}>
-        <div className={styles.container}>
-          <h1 className={styles.title}>
-            Create <span className={styles.pinkSpan}>T3</span> App
-          </h1>
-          <div className={styles.cardRow}>
-            <Link
-              className={styles.card}
-              href="https://create.t3.gg/en/usage/first-steps"
-              target="_blank"
-            >
-              <h3 className={styles.cardTitle}>First Steps →</h3>
-              <div className={styles.cardText}>
-                Just the basics - Everything you need to know to set up your
-                database and authentication.
-              </div>
-            </Link>
-            <Link
-              className={styles.card}
-              href="https://create.t3.gg/en/introduction"
-              target="_blank"
-            >
-              <h3 className={styles.cardTitle}>Documentation →</h3>
-              <div className={styles.cardText}>
-                Learn more about Create T3 App, the libraries it uses, and how
-                to deploy it.
-              </div>
-            </Link>
+    <main
+      style={{ minHeight: "100vh", background: "#111", margin: 0, padding: 0 }}
+    >
+      <h1
+        style={{
+          color: "#fff",
+          textAlign: "center",
+          fontSize: "2rem",
+          fontWeight: 700,
+          margin: "0",
+          padding: "2rem 0 1rem 0",
+          letterSpacing: "0.05em",
+        }}
+      >
+        My Google Photos Gallery
+      </h1>
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))",
+          gap: "16px",
+          maxWidth: 1200,
+          margin: "0 auto",
+          padding: "0 1rem 2rem 1rem",
+        }}
+      >
+        {images.map((src: string, i: number) => (
+          <div
+            key={i}
+            style={{
+              background: "#222",
+              borderRadius: 12,
+              overflow: "hidden",
+              boxShadow: "0 2px 8px rgba(0,0,0,0.15)",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              aspectRatio: "1/1",
+            }}
+          >
+            <Image
+              src={src}
+              alt={`photo-${i}`}
+              width={400}
+              height={400}
+              style={{
+                width: "100%",
+                height: "100%",
+                objectFit: "cover",
+                display: "block",
+                background: "#333",
+              }}
+              loading="lazy"
+            />
           </div>
-          <div className={styles.showcaseContainer}>
-            <p className={styles.showcaseText}>
-              {hello ? hello.greeting : "Loading tRPC query..."}
-            </p>
-          </div>
-
-          <LatestPost />
-        </div>
-      </main>
-    </HydrateClient>
+        ))}
+      </div>
+    </main>
   );
 }
