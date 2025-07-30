@@ -8,18 +8,26 @@ export default async function Home() {
   return (
     <main className={styles.container}>
       <div className={styles.gallery}>
-        {images.map((src: string, i: number) => (
-          <div key={i} className={styles.polaroid}>
-            <Image
-              src={src}
-              alt={`photo-${i}`}
-              width={400}
-              height={400}
-              loading="lazy"
-              className={styles.image}
-            />
-          </div>
-        ))}
+        {images.map((src: string, i: number) => {
+          const isLarge = i % 10 === 0;
+          return (
+            <div
+              key={i}
+              className={
+                `${styles.polaroid} ${styles.square} ${isLarge ? styles['gallery-item--large'] : ''}`
+              }
+            >
+              <Image
+                src={src}
+                alt={`photo-${i}`}
+                width={400}
+                height={400}
+                loading="lazy"
+                className={styles.image}
+              />
+            </div>
+          );
+        })}
       </div>
     </main>
   );
