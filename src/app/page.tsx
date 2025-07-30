@@ -9,7 +9,7 @@ export default async function Home() {
     <main className={styles.container}>
       <div className={styles.gallery}>
         {images.map((src: string, i: number) => (
-          <div key={i} className={styles.imageContainer}>
+          <div key={i} className={styles.polaroid}>
             <Image
               src={src}
               alt={`photo-${i}`}
