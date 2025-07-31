@@ -1,6 +1,9 @@
 .container {
   min-height: 100vh;
   background-color: black;
+  background-image: url("/images/cork.jpg");
+  background-repeat: repeat;
+  background-size: 256px auto;
 }
 
 .gallery {
