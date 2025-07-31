@@ -4,6 +4,7 @@
   background-image: url("/images/cork.jpg");
   background-repeat: repeat;
   background-size: 256px auto;
+  overflow: hidden;
 }
 
 .gallery {
@@ -21,7 +22,9 @@
 }
 
 .polaroid {
-  box-shadow: 0 8px 24px rgba(0,0,0,0.18), 0 1.5px 6px rgba(0,0,0,0.12);
+  box-shadow:
+    0 8px 24px rgba(0, 0, 0, 0.18),
+    0 1.5px 6px rgba(0, 0, 0, 0.12);
   padding: 16px 8px 48px 8px;
   background-color: white;
   position: relative;
