@@ -23,6 +23,19 @@
 .polaroid {
   padding: 16px 8px 48px 8px;
   background-color: white;
+  position: relative;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 32px;
+    height: 32px;
+    background: url("/images/pin.png") no-repeat center center;
+    background-size: contain;
+  }
 
   & > img {
     width: 100%;
