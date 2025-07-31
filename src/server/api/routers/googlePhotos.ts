@@ -2,7 +2,7 @@ import { publicProcedure, createTRPCRouter } from "@/server/api/trpc";
 import axios from "axios";
 import * as cheerio from "cheerio";
 
-const GOOGLE_PHOTOS_URL = "https://photos.app.goo.gl/2TmvvbVF7NP6QsT76";
+const GOOGLE_PHOTOS_URL = process.env.GOOGLE_PHOTOS_URL ?? "";
 
 export const googlePhotosRouter = createTRPCRouter({
   getImages: publicProcedure.query(async () => {
