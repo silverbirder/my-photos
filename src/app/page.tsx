@@ -10,12 +10,35 @@ export default async function Home() {
       <div className={styles.gallery}>
         {images.map((src: string, i: number) => {
           const isLarge = i % 10 === 0;
+          const left =
+            Math.random() > 0.5
+              ? `${Math.floor(Math.random() * 5)}px`
+              : undefined;
+          const top =
+            Math.random() > 0.5
+              ? `${Math.floor(Math.random() * 5)}px`
+              : undefined;
+          const right =
+            Math.random() > 0.5
+              ? `${Math.floor(Math.random() * 5)}px`
+              : undefined;
+          const bottom =
+            Math.random() > 0.5
+              ? `${Math.floor(Math.random() * 5)}px`
+              : undefined;
+          const transforms = [`rotate(${Math.random() * 20 - 10}deg)`];
+          const transform = transforms[0];
           return (
             <div
               key={i}
-              className={
-                `${styles.polaroid} ${styles.square} ${isLarge ? styles['gallery-item--large'] : ''}`
-              }
+              className={`${styles.polaroid} ${styles.square} ${isLarge ? styles["gallery-item--large"] : ""}`}
+              style={{
+                ...(left ? { left } : {}),
+                ...(top ? { top } : {}),
+                ...(right ? { right } : {}),
+                ...(bottom ? { bottom } : {}),
+                transform,
+              }}
             >
               <Image
                 src={src}
