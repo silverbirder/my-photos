@@ -39,7 +39,8 @@ export const googlePhotosRouter = createTRPCRouter({
       const imagePromises = urls.map((url) => fetchImagesFromUrl(url));
       const imageArrays = await Promise.all(imagePromises);
       const allImages = imageArrays.flat();
-      return { images: allImages };
+      const shuffledImages = allImages.sort(() => Math.random() - 0.5);
+      return { images: shuffledImages };
     } catch (error) {
       return { images: [], error: String(error) };
     }
