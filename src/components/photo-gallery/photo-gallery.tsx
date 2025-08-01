@@ -24,7 +24,6 @@ export const PhotoGallery = ({ images, stylesArray }: Props) => {
   return (
     <div className={styles.gallery}>
       {images.map((src: string, i: number) => {
-        const isLarge = i % 10 === 0;
         const style = stylesArray[i] ?? { transform: "rotate(0deg)" };
         return (
           <DialogTrigger
@@ -33,7 +32,7 @@ export const PhotoGallery = ({ images, stylesArray }: Props) => {
             onOpenChange={(isOpen) => setOpenModal(isOpen ? i : null)}
           >
             <Button
-              className={`${styles.polaroid} ${styles.square} ${isLarge ? styles["gallery-item--large"] : ""}`}
+              className={`${styles.polaroid} ${styles.square}`}
               style={{
                 ...(style.left ? { left: style.left } : {}),
                 ...(style.top ? { top: style.top } : {}),
