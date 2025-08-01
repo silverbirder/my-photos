@@ -3,6 +3,7 @@
 import styles from "./photo-gallery.module.css";
 import Image from "next/image";
 import { DialogTrigger, Modal, Dialog, Button } from "react-aria-components";
+import { useState } from "react";
 
 type StyleProps = {
   left?: string;
@@ -18,13 +19,19 @@ type Props = {
 };
 
 export const PhotoGallery = ({ images, stylesArray }: Props) => {
+  const [openModal, setOpenModal] = useState<number | null>(null);
+
   return (
     <div className={styles.gallery}>
       {images.map((src: string, i: number) => {
         const isLarge = i % 10 === 0;
         const style = stylesArray[i] ?? { transform: "rotate(0deg)" };
         return (
-          <DialogTrigger key={i}>
+          <DialogTrigger
+            key={i}
+            isOpen={openModal === i}
+            onOpenChange={(isOpen) => setOpenModal(isOpen ? i : null)}
+          >
             <Button
               className={`${styles.polaroid} ${styles.square} ${isLarge ? styles["gallery-item--large"] : ""}`}
               style={{
@@ -46,21 +53,21 @@ export const PhotoGallery = ({ images, stylesArray }: Props) => {
               />
             </Button>
             <Modal className={styles.modalOverlay}>
-              <Dialog className={styles.modalContent}>
-                <Button
-                  className={styles.closeButton}
-                  aria-label="モーダルを閉じる"
-                  slot="close"
-                >
-                  ×
+              <Dialog
+                className={`${styles.polaroid} ${styles.square} ${styles.modal}`}
+                style={{
+                  transform: style.transform,
+                }}
+              >
+                <Button onPress={() => setOpenModal(null)}>
+                  <Image
+                    src={src}
+                    alt={`写真 ${i + 1}枚目の拡大表示 - クリックして閉じる`}
+                    width={400}
+                    height={400}
+                    className={styles.image}
+                  />
                 </Button>
-                <Image
-                  src={src}
-                  alt={`写真 ${i + 1}枚目の拡大表示`}
-                  width={800}
-                  height={800}
-                  className={styles.modalImage}
-                />
               </Dialog>
             </Modal>
           </DialogTrigger>
