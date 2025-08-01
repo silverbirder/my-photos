@@ -1,0 +1,71 @@
+"use client";
+
+import styles from "./photo-gallery.module.css";
+import Image from "next/image";
+import { DialogTrigger, Modal, Dialog, Button } from "react-aria-components";
+
+type StyleProps = {
+  left?: string;
+  top?: string;
+  right?: string;
+  bottom?: string;
+  transform: string;
+};
+
+type Props = {
+  images: string[];
+  stylesArray: StyleProps[];
+};
+
+export const PhotoGallery = ({ images, stylesArray }: Props) => {
+  return (
+    <div className={styles.gallery}>
+      {images.map((src: string, i: number) => {
+        const isLarge = i % 10 === 0;
+        const style = stylesArray[i] ?? { transform: "rotate(0deg)" };
+        return (
+          <DialogTrigger key={i}>
+            <Button
+              className={`${styles.polaroid} ${styles.square} ${isLarge ? styles["gallery-item--large"] : ""}`}
+              style={{
+                ...(style.left ? { left: style.left } : {}),
+                ...(style.top ? { top: style.top } : {}),
+                ...(style.right ? { right: style.right } : {}),
+                ...(style.bottom ? { bottom: style.bottom } : {}),
+                transform: style.transform,
+                cursor: "pointer",
+              }}
+            >
+              <Image
+                src={src}
+                alt={`写真 ${i + 1}枚目 - クリックして拡大表示`}
+                width={400}
+                height={400}
+                loading="lazy"
+                className={styles.image}
+              />
+            </Button>
+            <Modal className={styles.modalOverlay}>
+              <Dialog className={styles.modalContent}>
+                <Button
+                  className={styles.closeButton}
+                  aria-label="モーダルを閉じる"
+                  slot="close"
+                >
+                  ×
+                </Button>
+                <Image
+                  src={src}
+                  alt={`写真 ${i + 1}枚目の拡大表示`}
+                  width={800}
+                  height={800}
+                  className={styles.modalImage}
+                />
+              </Dialog>
+            </Modal>
+          </DialogTrigger>
+        );
+      })}
+    </div>
+  );
+};
