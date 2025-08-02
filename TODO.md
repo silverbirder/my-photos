@@ -1,4 +1,0 @@
-- [ ] Testcontainer
-- [ ] scratch CSS
-- [ ] Test Playwright and Storybook
-- [ ] 画像が最後まで表示されない
