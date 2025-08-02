@@ -5,10 +5,16 @@ import { Geist } from "next/font/google";
 
 import { TRPCReactProvider } from "@/trpc/react";
 
+const baseUrl = process.env.BASE_URL ?? "https://silverbirder-cork-board.vercel.app";
+
 export const metadata: Metadata = {
-  title: "My Google Photos Gallery",
-  description: "A gallery of my Google Photos",
-  icons: [{ rel: "icon", url: "/favicon.ico" }],
+  metadataBase: new URL(baseUrl),
+  title: "cork board",
+  description: "A virtual cork board for my photos",
+  robots: {
+    index: true,
+  },
+  icons: [{ rel: "icon", url: "/icon/48" }],
 };
 
 const geist = Geist({
