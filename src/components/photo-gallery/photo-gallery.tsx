@@ -39,7 +39,6 @@ export const PhotoGallery = ({ images, stylesArray }: Props) => {
                 ...(style.right ? { right: style.right } : {}),
                 ...(style.bottom ? { bottom: style.bottom } : {}),
                 transform: style.transform,
-                cursor: "pointer",
               }}
             >
               <Image
@@ -57,16 +56,15 @@ export const PhotoGallery = ({ images, stylesArray }: Props) => {
                 style={{
                   transform: style.transform,
                 }}
+                onClick={() => setOpenModal(null)}
               >
-                <Button onPress={() => setOpenModal(null)}>
-                  <Image
-                    src={src}
-                    alt={`写真 ${i + 1}枚目の拡大表示 - クリックして閉じる`}
-                    width={400}
-                    height={400}
-                    className={styles.image}
-                  />
-                </Button>
+                <Image
+                  src={src}
+                  alt={`写真 ${i + 1}枚目の拡大表示 - クリックして閉じる`}
+                  width={400}
+                  height={400}
+                  className={styles.image}
+                />
               </Dialog>
             </Modal>
           </DialogTrigger>
